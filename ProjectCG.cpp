@@ -49,36 +49,36 @@ GLfloat width = 0.5;
 
 
 static GLfloat normais[] = {
-	//…………………………………………………………………………………………………… x=tam (Esquerda)
-	  -1.0,  0.0,  0.0,
-	  -1.0,  0.0,  0.0,
-	  -1.0,  0.0,  0.0,
-	  -1.0,  0.0,  0.0,
-	  //…………………………………………………………………………………………………… x=tam (Direita)
+	     //…………………………………………………………………………………………………… x=tam (Esquerda)
+		-1.0,  0.0,  0.0,
+		-1.0,  0.0,  0.0,
+		-1.0,  0.0,  0.0,
+		-1.0,  0.0,  0.0,
+	    //…………………………………………………………………………………………………… x=tam (Direita)
 		1.0,  0.0,  0.0,
 		1.0,  0.0,  0.0,
 		1.0,  0.0,  0.0,
 		1.0,  0.0,  0.0,
 		//…………………………………………………………………………………………………… y=tam (Cima)
-	   0.0,  1.0,  0.0,
-	   0.0,  1.0,  0.0,
-	   0.0,  1.0,  0.0,
-	   0.0,  1.0,  0.0,
-	   //…………………………………………………………………………………………………… Baixo
-	  0.0,  -1.0,  0.0,
-	  0.0,  -1.0,  0.0,
-	  0.0,  -1.0,  0.0,
-	  0.0,  -1.0,  0.0,
-	  //…………………………………………………………………………………………………… Frente
-	  0.0,  0.0,  1.0,
-	  0.0,  0.0,  1.0,
-	  0.0,  0.0,  1.0,
-	  0.0,  0.0,  1.0,
-	  //…………………………………………………………………………………………………… Tras
-	  0.0,  0.0,  -1.0,
-	  0.0,  0.0,  -1.0,
-	  0.0,  0.0,  -1.0,
-	  0.0,  0.0,  -1.0,
+		0.0,  1.0,  0.0,
+		0.0,  1.0,  0.0,
+		0.0,  1.0,  0.0,
+		0.0,  1.0,  0.0,
+	    //…………………………………………………………………………………………………… Baixo
+		0.0,  -1.0,  0.0,
+		0.0,  -1.0,  0.0,
+		0.0,  -1.0,  0.0,
+		0.0,  -1.0,  0.0,
+		//…………………………………………………………………………………………………… Frente
+		0.0,  0.0,  1.0,
+		0.0,  0.0,  1.0,
+		0.0,  0.0,  1.0,
+		0.0,  0.0,  1.0,
+		//…………………………………………………………………………………………………… Tras
+		0.0,  0.0,  -1.0,
+		0.0,  0.0,  -1.0,
+		0.0,  0.0,  -1.0,
+		0.0,  0.0,  -1.0,
 
 };
 //------------------------------------------------------------ Cores
@@ -121,8 +121,8 @@ void inicializa(void)
 
 	glVertexPointer(3, GL_FLOAT, 0, vertices); //………………………………………VertexArrays: vertices + normais + cores
 	glEnableClientState(GL_VERTEX_ARRAY);
-	//glNormalPointer(GL_FLOAT, 0, normais);
-	//glEnableClientState(GL_NORMAL_ARRAY);
+	glNormalPointer(GL_FLOAT, 0, normais);
+	glEnableClientState(GL_NORMAL_ARRAY);
 	// cores ??
 }
 
@@ -372,8 +372,8 @@ void teclasNotAscii(int key, int x, int y) {
 
 	if (key == GLUT_KEY_UP)   obsP[1] = (obsP[1] + 0.1);
 	if (key == GLUT_KEY_DOWN) obsP[1] = (obsP[1] - 0.1);
-	if (key == GLUT_KEY_LEFT)  aVisao = (aVisao + 0.1);
-	if (key == GLUT_KEY_RIGHT) aVisao = (aVisao - 0.1);
+	if (key == GLUT_KEY_LEFT)  aVisao = (aVisao + 0.03);
+	if (key == GLUT_KEY_RIGHT) aVisao = (aVisao - 0.03);
 
 	if (obsP[1] > yC)   obsP[1] = yC;   // limita altura
 	if (obsP[1] < -yC)  obsP[1] = -yC;
@@ -393,7 +393,7 @@ int main(int argc, char** argv) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(wScreen, hScreen);
 	glutInitWindowPosition(300, 100);
-	glutCreateWindow("||Rui Tapadinhas - 2018283200||       ||Porta:'A'/'D'||       ||Maçaneta:'W'/'S'||       ||Janela:'Q'/'E'||       ||Observador:'SETAS'||");
+	glutCreateWindow("||Rui Tapadinhas - 2018283200|| ||Porta:'A'/'D'|| ||Maçaneta:'W'/'S'|| ||Janela:'Q'/'E'|| ||Observador:'SETAS'|| ||Zoom: 'Z'/'X'||");
 
 	inicializa();
 
