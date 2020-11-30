@@ -1,0 +1,35 @@
+﻿  ProjectCG.cpp
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(106,40): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(106,57): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(107,28): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(107,28): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(107,55): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(107,55): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(118,24): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(162,24): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(177,18): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(227,33): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(228,23): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(234,26): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(235,29): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(237,28): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(241,26): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(246,30): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(247,25): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(288,23): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(289,23): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(299,25): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(300,25): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(323,26): warning C4305: '+=': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(332,26): warning C4305: '-=': truncation from 'double' to 'GLfloat'
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(345,21): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(346,21): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(356,21): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(357,21): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(373,47): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(374,47): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(375,46): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(376,46): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(381,19): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\Alexandre Tapadinhas\Documents\Universidade\3º Ano\1º Semestre\CG\ProjectCG\ProjectCG.cpp(382,19): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+LINK : fatal error LNK1104: cannot open file 'freeglut.lib'

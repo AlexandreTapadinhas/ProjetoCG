@@ -10,6 +10,7 @@ rui@student.dei.uc.pt
 #include <math.h>
 #include <GL/freeglut.h>
 
+
 //--------------------------------- Definir cores
 #define BLUE     0.0, 0.0, 1.0, 1.0
 #define RED		 1.0, 0.0, 0.0, 1.0
@@ -42,6 +43,22 @@ static GLfloat vertices[] = {
 		-tam,  tam, -tam,	// 9 
 		 tam,  tam, -tam,	// 10 
 		 tam,  tam,  tam,	// 11 
+	//……………………………………………………… Baixo
+		-tam,  -tam,  tam,	// 12
+		-tam,  -tam, -tam,	// 13
+		 tam,  -tam, -tam,	// 14 
+		 tam,  -tam,  tam,	// 15 
+	//……………………………………………………… Frente
+		-tam,  -tam,  tam,	// 16 0 
+		-tam,   tam,  tam,	// 17 1
+		 tam,  -tam,  tam,	// 18 4 
+		 tam,   tam,  tam,	// 19 5 
+	//……………………………………………………… Tras
+		-tam,   tam, -tam,	// 20 2 
+		-tam,  -tam, -tam,	// 21 3 
+		 tam,   tam, -tam,	// 22 6 
+		 tam,  -tam, -tam,	// 23 7 
+
 };
 
 GLfloat height = 2;
@@ -88,12 +105,12 @@ static GLfloat normais[] = {
 
 //=========================================================== FACES DA MESA
 GLboolean   frenteVisivel = 0;
-static GLuint     cima[] = { 5, 6, 2, 1 };   // regra da mao direita
-static GLuint	  esquerda[] = { 0, 1, 2, 3 };	// versor da face virado para o lado de fora da face de acordo com a regra da mao direita
-static GLuint	  direita[] = { 4, 7, 6, 5 };
-static GLuint	  frente[] = { 4, 5, 1 ,0 };
-static GLuint	  tras[] = { 3, 2, 6, 7 };
-static GLuint	  baixo[] = { 7, 4, 0, 3 };
+static GLuint	  esquerda[] = { 0, 1, 2, 3 };	// regra da mao direita
+static GLuint	  direita[] = { 4, 7, 6, 5 };   // versor da face virado para o lado de fora da face de acordo com a regra da mao direita
+static GLuint     cima[] = { 8, 11, 10, 9 };
+static GLuint	  baixo[] = { 14, 15, 12, 13 };
+static GLuint	  frente[] = { 18, 19, 17, 16 };
+static GLuint	  tras[] = { 21, 20, 22, 23 };
 
 GLfloat anguloPorta = 0;
 GLfloat anguloMacaneta = 0;
