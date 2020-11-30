@@ -49,15 +49,15 @@ static GLfloat vertices[] = {
 		 tam,  -tam, -tam,	// 14 
 		 tam,  -tam,  tam,	// 15 
 	//……………………………………………………… Frente
-		-tam,  -tam,  tam,	// 16 0 
-		-tam,   tam,  tam,	// 17 1
-		 tam,  -tam,  tam,	// 18 4 
-		 tam,   tam,  tam,	// 19 5 
+		-tam,  -tam,  tam,	// 16 
+		-tam,   tam,  tam,	// 17
+		 tam,  -tam,  tam,	// 18 
+		 tam,   tam,  tam,	// 19 
 	//……………………………………………………… Tras
-		-tam,   tam, -tam,	// 20 2 
-		-tam,  -tam, -tam,	// 21 3 
-		 tam,   tam, -tam,	// 22 6 
-		 tam,  -tam, -tam,	// 23 7 
+		-tam,   tam, -tam,	// 20 
+		-tam,  -tam, -tam,	// 21 
+		 tam,   tam, -tam,	// 22 
+		 tam,  -tam, -tam,	// 23 
 
 };
 
@@ -98,6 +98,7 @@ static GLfloat normais[] = {
 		0.0,  0.0,  -1.0,
 
 };
+
 //------------------------------------------------------------ Cores
 // static GLfloat cor[] = { };
 // nao está feito !!
