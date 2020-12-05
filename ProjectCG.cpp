@@ -9,6 +9,7 @@ rui@student.dei.uc.pt
 #include <stdio.h>
 #include <math.h>
 #include <GL/freeglut.h>
+#include "RgbImage.h"
 
 
 //--------------------------------- Definir cores
@@ -99,12 +100,38 @@ static GLfloat normais[] = {
 
 };
 
+static GLfloat texturas[] = {
+		0, 0,
+		1, 0,
+		1, 1,
+		0, 1,
+		0, 0,
+		1, 0,
+		1, 1,
+		0, 1,
+		0, 0,
+		1, 0,
+		1, 1,
+		0, 1,
+		0, 0,
+		1, 0,
+		1, 1,
+		0, 1,
+		0, 0,
+		1, 0,
+		1, 1,
+		0, 1,
+		0, 0,
+		1, 0,
+		1, 1,
+		0, 1 };
+
 //------------------------------------------------------------ Cores
 // static GLfloat cor[] = { };
 // nao está feito !!
 
 
-//=========================================================== FACES DA MESA
+//=========================================================== FACES DO CUBO
 GLboolean   frenteVisivel = 0;
 static GLuint	  esquerda[] = { 0, 1, 2, 3 };	// regra da mao direita
 static GLuint	  direita[] = { 4, 7, 6, 5 };   // versor da face virado para o lado de fora da face de acordo com a regra da mao direita
@@ -128,6 +155,52 @@ GLfloat  angZoom = 90;
 GLfloat  incZoom = 3;
 
 
+//------------------------------------------------------------ TEXTURAS
+GLuint   texture[5];
+RgbImage tex_img;
+
+void initTexturas()
+{
+	glGenTextures(1, &texture[0]);
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	tex_img.LoadBmpFile("madeira.bmp");
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		tex_img.GetNumCols(),
+		tex_img.GetNumRows(), 0, GL_RGB, GL_UNSIGNED_BYTE,
+		tex_img.ImageData());
+
+	glGenTextures(1, &texture[1]);
+	glBindTexture(GL_TEXTURE_2D, texture[1]);
+	tex_img.LoadBmpFile("metal.bmp");
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		tex_img.GetNumCols(),
+		tex_img.GetNumRows(), 0, GL_RGB, GL_UNSIGNED_BYTE,
+		tex_img.ImageData());
+
+	glGenTextures(1, &texture[2]);
+	glBindTexture(GL_TEXTURE_2D, texture[2]);
+	tex_img.LoadBmpFile("glass.bmp");
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3,
+		tex_img.GetNumCols(),
+		tex_img.GetNumRows(), 0, GL_RGB, GL_UNSIGNED_BYTE,
+		tex_img.ImageData());
+}
+
 
 //================================================================================
 //=========================================================================== INIT
@@ -135,13 +208,18 @@ void inicializa(void)
 {
 	glClearColor(LIGHTBLUE);		//………………………………………………………………………………Apagar
 	glEnable(GL_DEPTH_TEST);	//………………………………………………………………………………Profundidade
-	glShadeModel(GL_SMOOTH);	//………………………………………………………………………………Interpolacao de cores	
+	glShadeModel(GL_SMOOTH);	//………………………………………………………………………………Interpolacao de cores
+
+	initTexturas();
 
 	glVertexPointer(3, GL_FLOAT, 0, vertices); //………………………………………VertexArrays: vertices + normais + cores
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glNormalPointer(GL_FLOAT, 0, normais);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	// cores ??
+	glTexCoordPointer(2, GL_FLOAT, 0, texturas);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
 }
 
 void drawCube() {
@@ -186,13 +264,15 @@ void drawScene() {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glNormalPointer(GL_FLOAT, 0, normais);
 	glEnableClientState(GL_NORMAL_ARRAY);
+	glTexCoordPointer(2, GL_FLOAT, 0, texturas);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 
    //==================================== Porta
-
 	glRotatef(anguloPorta, 0, 1, 0); //rotação do conjunto todo
+	
 	glPushMatrix();
-		glColor4f(BROWN);
+		//glColor4f(BROWN);
 		//porta de 1 peça
 		/*glTranslatef(2.5, 5, 0.25);
 		glScalef(5, 10, 0.5);
@@ -211,41 +291,57 @@ void drawScene() {
 			|___|___|___|
 		
 		*/
+		glEnable(GL_TEXTURE_2D);
 		glPushMatrix();//peça 1
+			glBindTexture(GL_TEXTURE_2D, texture[0]);
 			glTranslatef(1, 5, 0.25);
 			glScalef(2, 10, 0.5);
 			drawCube();
 		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
 
+		glEnable(GL_TEXTURE_2D);
 		glPushMatrix();//peça 2
+			glBindTexture(GL_TEXTURE_2D, texture[0]);
 			glTranslatef(4, 5, 0.25);
 			glScalef(2, 10, 0.5);
 			drawCube();
 		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
 
+		glEnable(GL_TEXTURE_2D);
 		glPushMatrix();//peça 3
+			glBindTexture(GL_TEXTURE_2D, texture[0]);
 			glTranslatef(2.5, 9, 0.25);
 			glScalef(1, 2, 0.5);
 			drawCube();
 		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
 
+		glEnable(GL_TEXTURE_2D);
 		glPushMatrix();//peça 4
+			glBindTexture(GL_TEXTURE_2D, texture[0]);
 			glTranslatef(2.5, 3.5, 0.25);
 			glScalef(1, 7, 0.5);
 			drawCube();
 		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
 
 	glPopMatrix();
 
-	//Porta da janela
+
+	//Janela da porta
 	glPushMatrix();
 		glTranslatef(xDeslizaJanela, 0, 0);
+		glEnable(GL_TEXTURE_2D);
 		glPushMatrix();
+			glBindTexture(GL_TEXTURE_2D, texture[2]);
 			glColor4f(BLACK);
 			glTranslatef(2.5, 7.5, 0.0375);
 			glScalef(1, 1, 0.05);
 			drawCube();
 		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 
 	//Maçaneta
@@ -253,18 +349,24 @@ void drawScene() {
 	glTranslatef(0.60 / 2, 0, 0);
 	glRotatef(anguloMacaneta, 0, 0, 1);
 	glTranslatef(-0.60/2, 0, 0);
+	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();//Paralelipipedo
+		glBindTexture(GL_TEXTURE_2D, texture[1]);
 		glColor4f(GREY);
 		glTranslatef(0, 0, 0);
 		glScalef(0.75, 0.2, 0.2);
 		drawCube();
 	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();//Cubo
+		glBindTexture(GL_TEXTURE_2D, texture[1]);
 		glColor4f(GREY);
 		glTranslatef(0.275, 0, -0.2);
 		glScalef(0.2, 0.2, 0.2);
 		drawCube();
 	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 	
 }
 
