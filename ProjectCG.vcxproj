@@ -141,20 +141,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ProjectCG.cpp" />
-    <ClCompile Include="RgbImage.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="RgbImage.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\P4texturasBasico\madeira.bmp" />
-    <Image Include="madeira.bmp" />
-    <Image Include="metal.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".gitattributes" />
-    <None Include=".gitignore" />
-    <None Include="CppProperties.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

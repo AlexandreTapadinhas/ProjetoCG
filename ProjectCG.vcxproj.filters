@@ -18,29 +18,5 @@
     <ClCompile Include="ProjectCG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RgbImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="RgbImage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\P4texturasBasico\madeira.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="madeira.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="metal.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".gitignore" />
-    <None Include="CppProperties.json" />
-    <None Include=".gitattributes" />
   </ItemGroup>
 </Project>
