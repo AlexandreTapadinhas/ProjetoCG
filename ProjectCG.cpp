@@ -165,12 +165,17 @@ GLint   Dia = 1;     //:::   'D'
 GLfloat intensidadeDia = 0.3;
 GLfloat luzGlobalCorAmb[4] = { intensidadeDia, intensidadeDia,intensidadeDia, 1.0 };
 
-GLint   ligaTeto = 0;		 //:::   'T'  
+GLint   ligaTeto = 1;		 //:::   'T'  
 GLfloat intensidadeT = 0.3;  //:::   'I'  
 GLint   luzR = 1;		 	 //:::   'R'  
 GLint   luzG = 1;			 //:::   'G'  
-GLint   luzB = 1;			 //:::   'B'  
-GLfloat localPos[4] = { 1.0, 2.0, 2.0, 1.0 };
+GLint   luzB = 1;			 //:::   'B' 
+
+//Pontual
+GLint localPosx = 2.5;
+GLint localPosy = 10;
+GLint localPosz = 5;
+GLfloat localPos[4] = { localPosx, localPosy, localPosz, 1.0 };
 GLfloat localCorAmb[4] = { 0, 0, 0, 0.0 };
 GLfloat localCorDif[4] = { luzR, luzG, luzB, 1.0 };
 GLfloat localCorEsp[4] = { luzR, luzG, luzB, 1.0 };
@@ -342,6 +347,17 @@ void drawScene() {
 	glLightfv(GL_LIGHT0, GL_AMBIENT, localCorAmb);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, localCorDif);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, localCorEsp);
+
+
+	// FOCOS
+	if (ligaTeto) {
+		glPushMatrix();
+			glTranslatef(2.5, 10, 5);
+			glScalef(0.25, 0.25, 0.25);
+			drawCube();
+		glPopMatrix();
+	}
+
 
 	//==================================== Porta
 	glPushMatrix();
@@ -623,7 +639,7 @@ void keyboard(unsigned char key, int x, int y) {
 		//--------------------------- AMBIENTE
 	case '1':
 		Dia = !Dia;
-		printf("%d", Dia);
+		//printf("%d", Dia);
 		if (Dia) { luzGlobalCorAmb[0] = 0.7;   luzGlobalCorAmb[1] = 0.7;   luzGlobalCorAmb[2] = 0.7; }
 		else { luzGlobalCorAmb[0] = 0.2;   luzGlobalCorAmb[1] = 0.2;   luzGlobalCorAmb[2] = 0.2; }
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzGlobalCorAmb);
