@@ -28,3 +28,8 @@ x64/*
 *.ipch
 .vs/ProjectCG/v16/ipch/AutoPCH/181c1c8cb2e0ad31/RGBIMAGE.ipch
 .vs/ProjectCG/v16/ipch/AutoPCH/181c1c8cb2e0ad31/RGBIMAGE.ipch
+*.ipch
+.vs/ProjectCG/v16/ipch/AutoPCH/181c1c8cb2e0ad31/RGBIMAGE.ipch
+.backup antes transparenciatxt.txt
+*.user
+ProjectCG.vcxproj.user

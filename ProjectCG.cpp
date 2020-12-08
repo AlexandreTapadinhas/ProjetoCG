@@ -101,30 +101,30 @@ static GLfloat normais[] = {
 };
 
 static GLfloat texturas[] = {
-		0, 0,
 		1, 0,
 		1, 1,
 		0, 1,
 		0, 0,
-		1, 0,
+		0, 0,
+		0, 1,
 		1, 1,
+		1, 0,
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0,
 		0, 1,
 		0, 0,
 		1, 0,
 		1, 1,
-		0, 1,
 		0, 0,
+		0, 1,
 		1, 0,
 		1, 1,
-		0, 1,
-		0, 0,
-		1, 0,
 		1, 1,
-		0, 1,
-		0, 0,
 		1, 0,
-		1, 1,
-		0, 1 };
+		0, 1,
+		0, 0 };
 
 //------------------------------------------------------------ Cores
 // static GLfloat cor[] = { };
@@ -161,17 +161,18 @@ GLuint   texture[5];
 RgbImage tex_img;
 
 //------------------------------------------------------------ ILUMINAÇÃO
+//Ambiente
 GLint   Dia = 1;     //:::   'D'  
 GLfloat intensidadeDia = 0.3;
 GLfloat luzGlobalCorAmb[4] = { intensidadeDia, intensidadeDia,intensidadeDia, 1.0 };
 
+//Pontual
 GLint   ligaTeto = 1;		 //:::   'T'  
 GLfloat intensidadeT = 0.3;  //:::   'I'  
 GLint   luzR = 1;		 	 //:::   'R'  
 GLint   luzG = 1;			 //:::   'G'  
 GLint   luzB = 1;			 //:::   'B' 
 
-//Pontual
 GLint localPosx = 2.5;
 GLint localPosy = 10;
 GLint localPosz = 5;
@@ -180,7 +181,18 @@ GLfloat localCorAmb[4] = { 0, 0, 0, 0.0 };
 GLfloat localCorDif[4] = { luzR, luzG, luzB, 1.0 };
 GLfloat localCorEsp[4] = { luzR, luzG, luzB, 1.0 };
 
+//Focos
+bool 		Focos[] = { 1,1 };		//.. Dois Focos ligados ou desligados
+GLfloat		aberturaFoco = 10.0;		//.. angulo inicial do foco
+GLfloat		anguloINC = 3.0;		//.. incremento
+GLfloat		anguloMIN = 3.0;		//.. minimo
+GLfloat		anguloMAX = 70.0;		//.. maximo
 
+GLfloat Pos1[] = { 0.0f, 5.0f,  1.0f, 1.0f };   // Foco 1
+GLfloat Pos2[] = { 5.0f, 5.0f,  1.0f, 1.0f };   // Foco 2 
+
+// MALHA
+GLint dim = 64;
 
 void initTexturas()
 {
@@ -237,16 +249,45 @@ void initTexturas()
 		tex_img.ImageData());
 }
 
-
 void initLuzes(void) {
-	//…………………………………………………………………………………………………………………………………………… Ambiente
+	//Ambiente
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzGlobalCorAmb);
 
-	//…………………………………………………………………………………………………………………………………………… Teto
+	//Pontual
 	glLightfv(GL_LIGHT0, GL_POSITION, localPos);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, localCorAmb);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, localCorDif);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, localCorEsp);
+
+	//Focos
+	GLfloat Foco_direccao[] = { 0, -1, 0, 0 };	//……… -Y
+	GLfloat Foco1_cor[] = { 0, 1,  0, 1 };	//……… Cor da luz 1
+	GLfloat Foco2_cor[] = { 1, 0,  0, 1 };	//……… Cor da luz 2
+	GLfloat Foco_ak = 1.0;
+	GLfloat Foco_al = 0.05f;
+	GLfloat Foco_aq = 0.0f;
+	GLfloat Foco_Expon = 2.0;		// Foco, SPOT_Exponent
+
+	//……………………………………………………………………………………………………………………………Foco Esquerda
+	glLightfv(GL_LIGHT1, GL_POSITION, Pos1);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, Foco1_cor);
+	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, Foco_ak);
+	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, Foco_al);
+	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, Foco_aq);
+	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, aberturaFoco);
+	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, Foco_direccao);
+	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, Foco_Expon);
+
+	//……………………………………………………………………………………………………………………………Foco Direita
+	glLightfv(GL_LIGHT2, GL_POSITION, Pos2);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, Foco2_cor);
+	glLightf(GL_LIGHT2, GL_CONSTANT_ATTENUATION, Foco_ak);
+	glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, Foco_al);
+	glLightf(GL_LIGHT2, GL_QUADRATIC_ATTENUATION, Foco_aq);
+	glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, aberturaFoco);
+	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, Foco_direccao);
+	glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, Foco_Expon);
+
 }
 
 void updateLuz() {
@@ -269,6 +310,7 @@ void updateLuz() {
 void inicializa(void)
 {
 	glClearColor(LIGHTBLUE);		//………………………………………………………………………………Apagar
+	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);	//………………………………………………………………………………Profundidade
 	glShadeModel(GL_SMOOTH);	//………………………………………………………………………………Interpolacao de cores
 
@@ -276,6 +318,8 @@ void inicializa(void)
 	initLuzes();
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT2);
 
 
 	glVertexPointer(3, GL_FLOAT, 0, vertices); //………………………………………VertexArrays: vertices + normais + cores
@@ -348,16 +392,36 @@ void drawScene() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, localCorDif);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, localCorEsp);
 
-
-	// FOCOS
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
+	// Pontual
 	if (ligaTeto) {
 		glPushMatrix();
-			glTranslatef(2.5, 10, 5);
-			glScalef(0.25, 0.25, 0.25);
-			drawCube();
+		glColor4f(WHITE);
+		glTranslatef(localPosx, localPosy, localPosz);
+		glScalef(0.25, 0.25, 0.25);
+		drawCube();
 		glPopMatrix();
 	}
-
+	//Focos
+	if (Focos[0]) { //Verde
+		glPushMatrix();
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glTranslatef(Pos1[0], Pos1[1], Pos1[2]);
+		glScalef(0.25, 0.25, 0.25);
+		drawCube();
+		glPopMatrix();
+	}
+	if (Focos[1]) { 	//Vermelho
+		glPushMatrix();
+		glColor3f(1.0f, 0.0f, 0.0f);
+		glTranslatef(Pos2[0], Pos2[1], Pos2[2]);
+		glScalef(0.25, 0.25, 0.25);
+		drawCube();
+		glPopMatrix();
+	}
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_LIGHTING);
 
 	//==================================== Porta
 	glPushMatrix();
@@ -422,6 +486,15 @@ void drawScene() {
 	glPopMatrix();
 
 
+
+	GLfloat corTransp[] = { 1.0, 1.0, 1.0, 0.5 };
+
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, corTransp);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, corTransp);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, corTransp);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//Janela da porta
 	glPushMatrix();
 	glTranslatef(xDeslizaJanela, 0, 0);
@@ -435,6 +508,11 @@ void drawScene() {
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
+
+	glBlendFunc(GL_ONE, GL_ZERO);
+
+
+
 
 	//Maçaneta
 	GLfloat macanetaAmb[] = { 0.23125f, 0.23125f, 0.23125f, 1.0f };
@@ -475,16 +553,42 @@ void drawScene() {
 	glPopMatrix(); //fim rotação porta
 
 	//Chão
-	GLfloat chaoAmb[] = { 0.1745f, 0.01175f, 0.01175f, 0.55f };
-	GLfloat	chaoDif[] = { 0.61424f, 0.04136f, 0.04136f, 0.55f };
-	GLfloat	chaoSpec[] = { 0.727811f, 0.626959f, 0.626959f, 0.55f };
-	GLfloat chaoCoef = 76.8f;
+	GLfloat chaoAmb[] = { 0.2f,0.15f,0.15f,1.0f };
+	GLfloat	chaoDif[] = { 0.3f,0.2f,0.2f,1.0f };
+	GLfloat	chaoSpec[] = { 0.7f,0.6f,0.6f,1.0f };
+	GLfloat chaoCoef = 32.0f;
 
 	glMaterialfv(GL_FRONT, GL_AMBIENT, chaoAmb);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, chaoDif);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, chaoSpec);
 	glMaterialf(GL_FRONT, GL_SHININESS, chaoCoef);
 
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texture[3]);
+
+	float med_dim = (float)dim / 2;
+
+	glPushMatrix();
+
+	glNormal3f(0, 1, 0);          //normal 
+	glTranslatef(-12.5, 0, -15);
+	glScaled(15, 0, 15);
+
+	glBegin(GL_QUADS);
+	for (int i = 0; i < dim; i++)
+		for (int j = 0; j < dim; j++) {
+			glTexCoord2f((float)j / dim, (float)i / dim);				glVertex3d((float)j / med_dim, 0, (float)i / med_dim);
+			glTexCoord2f((float)(j + 1) / dim, (float)i / dim);			glVertex3d((float)(j + 1) / med_dim, 0, (float)i / med_dim);
+			glTexCoord2f((float)(j + 1) / dim, (float)(i + 1) / dim);	glVertex3d((float)(j + 1) / med_dim, 0, (float)(i + 1) / med_dim);
+			glTexCoord2f((float)j / dim, (float)(i + 1) / dim);			glVertex3d((float)j / med_dim, 0, (float)(i + 1) / med_dim);
+		}
+	glEnd();
+	glPopMatrix();
+
+	glDisable(GL_TEXTURE_2D);
+
+	/*
 	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();
 	glBindTexture(GL_TEXTURE_2D, texture[3]);
@@ -493,7 +597,11 @@ void drawScene() {
 	drawCube();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
+	*/
 
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 void iluminacao() {
@@ -510,7 +618,7 @@ void display(void) {
 	//================================================================= Apaga ecran e lida com profundidade (3D)
 	glClearColor(0, 0, 0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	/*
 	//=============================================== Viewport0 Informacao - sem corIluminacap
 	glDisable(GL_LIGHTING);
 	glViewport(0, 400, wScreen / 6, hScreen / 5);
@@ -532,7 +640,7 @@ void display(void) {
 	sprintf_s(texto, 30, "   %4.2f - Intensidade 'I'", intensidadeT);
 	desenhaTexto(texto, -12, 1, -2);
 	glEnable(GL_LIGHTING);
-
+	*/
 	//================================================================= Viewport1 
 	glViewport(0, 0, wScreen, hScreen);
 	glMatrixMode(GL_PROJECTION);
@@ -546,6 +654,7 @@ void display(void) {
 
 	//…………………………………………………………………………………………………………………………………………………………Objectos
 	iluminacao();
+	initLuzes();
 	//drawEixos();
 	drawScene();
 
@@ -674,6 +783,52 @@ void keyboard(unsigned char key, int x, int y) {
 		updateLuz();
 		glutPostRedisplay();
 		break;
+	case '7': //liga desliga foco 1
+		Focos[0] = !Focos[0];
+		if (Focos[0] == 0)
+			glDisable(GL_LIGHT1);
+		else
+			glEnable(GL_LIGHT1);
+		glutPostRedisplay();
+		break;
+	case '8': //liga desliga foco 2
+		Focos[1] = !Focos[1];
+		if (Focos[1] == 0)
+			glDisable(GL_LIGHT2);
+		else
+			glEnable(GL_LIGHT2);
+		glutPostRedisplay();
+		break;
+	case '9':
+		//printf("%f", aberturaFoco);
+		aberturaFoco = aberturaFoco + anguloINC;
+		if (aberturaFoco > anguloMAX)
+			aberturaFoco = anguloMAX;
+		glutPostRedisplay();
+		break;
+	case '0':
+		//printf("%f", aberturaFoco);
+		aberturaFoco = aberturaFoco - anguloINC;
+		if (aberturaFoco < anguloMIN)
+			aberturaFoco = anguloMIN;
+		glutPostRedisplay();
+		break;
+
+	case 'm':
+	case 'M':
+		dim = 0.5 * dim;
+		if (dim < 1) dim = 1;
+		glutPostRedisplay();
+		break;
+	case 'n':
+	case 'N':
+		dim = 2 * dim;
+		if (dim > 256) dim = 256;
+		glutPostRedisplay();
+		break;
+
+
+
 		//--------------------------- Escape
 	case 27:
 		exit(0);
