@@ -147,8 +147,9 @@
     <ClInclude Include="RgbImage.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\P4texturasBasico\madeira.bmp" />
+    <Image Include="glass.bmp" />
     <Image Include="madeira.bmp" />
+    <Image Include="madeira_chao.bmp" />
     <Image Include="metal.bmp" />
   </ItemGroup>
   <ItemGroup>

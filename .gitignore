@@ -21,6 +21,10 @@ Debug/ProjectCG.tlog/ProjectCG.lastbuildstate
 Debug/ProjectCG.vcxproj.FileListAbsolute.txt
 Debug/vc142.idb
 Debug/vc142.pdb
-/FilesNotUsed
-/Debug
+/FilesNotUsed/*
+/Debug/*
 /x64
+*.ipch
+*.ipch
+.vs/ProjectCG/v16/ipch/AutoPCH/181c1c8cb2e0ad31/RGBIMAGE.ipch
+.vs/ProjectCG/v16/ipch/AutoPCH/181c1c8cb2e0ad31/RGBIMAGE.ipch

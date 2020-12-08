@@ -28,13 +28,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\P4texturasBasico\madeira.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="madeira.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="metal.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="glass.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="madeira_chao.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
