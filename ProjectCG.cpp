@@ -196,9 +196,9 @@ GLint dim = 64;
 
 void initTexturas()
 {
-	glGenTextures(1, &texture[0]);
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	tex_img.LoadBmpFile("madeira.bmp");
+	glGenTextures(1, &texture[4]);
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	tex_img.LoadBmpFile("madeira_chao.bmp");
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -211,7 +211,7 @@ void initTexturas()
 
 	glGenTextures(1, &texture[1]);
 	glBindTexture(GL_TEXTURE_2D, texture[1]);
-	tex_img.LoadBmpFile("metal.bmp");
+	tex_img.LoadBmpFile("caracol.bmp");
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -224,7 +224,7 @@ void initTexturas()
 
 	glGenTextures(1, &texture[2]);
 	glBindTexture(GL_TEXTURE_2D, texture[2]);
-	tex_img.LoadBmpFile("glass.bmp");
+	tex_img.LoadBmpFile("caracol.bmp");
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -326,7 +326,7 @@ void inicializa(void)
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glNormalPointer(GL_FLOAT, 0, normais);
 	glEnableClientState(GL_NORMAL_ARRAY);
-	// falta cores
+	// falta cores mas não é preciso
 	glTexCoordPointer(2, GL_FLOAT, 0, texturas);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -423,136 +423,7 @@ void drawScene() {
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 
-	//==================================== Porta
-	glPushMatrix();
-	glRotatef(anguloPorta, 0, 1, 0); //rotação do conjunto todo
-
-	glPushMatrix();
-	//glColor4f(BROWN);
-	//porta de 1 peça
-	/*glTranslatef(2.5, 5, 0.25);
-	glScalef(5, 10, 0.5);
-	drawCube();*/
-	//porta de 4 peças
-	/*
-		_____________
-		|	| 3 |	|
-		|	|___|	|
-		|	|	|	|
-		|	|___|	|
-		| 1 |	| 2 |
-		|	|	|	|
-		|	| 4 |	|
-		|	|	|	|
-		|___|___|___|
-
-	*/
-	glEnable(GL_TEXTURE_2D);
-	glPushMatrix();//peça 1
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	glTranslatef(1, 5, 0.25);
-	glScalef(2, 10, 0.5);
-	drawCube();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
-
-	glEnable(GL_TEXTURE_2D);
-	glPushMatrix();//peça 2
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	glTranslatef(4, 5, 0.25);
-	glScalef(2, 10, 0.5);
-	drawCube();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
-
-	glEnable(GL_TEXTURE_2D);
-	glPushMatrix();//peça 3
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	glTranslatef(2.5, 9, 0.25);
-	glScalef(1, 2, 0.5);
-	drawCube();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
-
-	glEnable(GL_TEXTURE_2D);
-	glPushMatrix();//peça 4
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	glTranslatef(2.5, 3.5, 0.25);
-	glScalef(1, 7, 0.5);
-	drawCube();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
-
-	glPopMatrix();
-
-
-
-	GLfloat corTransp[] = { 1.0, 1.0, 1.0, 0.5 };
-
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, corTransp);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, corTransp);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, corTransp);
-
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//Janela da porta
-	glPushMatrix();
-	glTranslatef(xDeslizaJanela, 0, 0);
-	glEnable(GL_TEXTURE_2D);
-	glPushMatrix();
-	glBindTexture(GL_TEXTURE_2D, texture[2]);
-	//glColor4f(BLACK);
-	glTranslatef(2.5, 7.5, 0.0375);
-	glScalef(1, 1, 0.05);
-	drawCube();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
-	glPopMatrix();
-
-	glBlendFunc(GL_ONE, GL_ZERO);
-
-
-
-
-	//Maçaneta
-	GLfloat macanetaAmb[] = { 0.23125f, 0.23125f, 0.23125f, 1.0f };
-	GLfloat	macanetaDif[] = { 0.50754f, 0.50754f, 0.50754f, 1.0f };
-	GLfloat	macanetaSpec[] = { 0.508273f, 0.508273f, 0.508273f, 1.0f };
-	GLfloat macanetaCoef = 51.2f;
-
-	glMaterialfv(GL_FRONT, GL_AMBIENT, macanetaAmb);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, macanetaDif);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, macanetaSpec);
-	glMaterialf(GL_FRONT, GL_SHININESS, macanetaCoef);
-
-	glPushMatrix();
-	glTranslatef(4.2, 5, 0.8);
-	glTranslatef(0.60 / 2, 0, 0);
-	glRotatef(anguloMacaneta, 0, 0, 1);
-	glTranslatef(-0.60 / 2, 0, 0);
-	glEnable(GL_TEXTURE_2D);
-	glPushMatrix();//Paralelipipedo
-	glBindTexture(GL_TEXTURE_2D, texture[1]);
-	//glColor4f(GREY);
-	glTranslatef(0, 0, 0);
-	glScalef(0.75, 0.2, 0.2);
-	drawCube();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
-	glEnable(GL_TEXTURE_2D);
-	glPushMatrix();//Cubo
-	glBindTexture(GL_TEXTURE_2D, texture[1]);
-	//glColor4f(GREY);
-	glTranslatef(0.275, 0, -0.2);
-	glScalef(0.2, 0.2, 0.2);
-	drawCube();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
-	glPopMatrix();
-
-	glPopMatrix(); //fim rotação porta
-
-	//Chão
+	//==================================== Chão
 	GLfloat chaoAmb[] = { 0.2f,0.15f,0.15f,1.0f };
 	GLfloat	chaoDif[] = { 0.3f,0.2f,0.2f,1.0f };
 	GLfloat	chaoSpec[] = { 0.7f,0.6f,0.6f,1.0f };
@@ -598,6 +469,136 @@ void drawScene() {
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
 	*/
+
+	//==================================== Porta
+	glPushMatrix();
+	glRotatef(anguloPorta, 0, 1, 0); //rotação do conjunto todo
+
+	glPushMatrix();
+	//glColor4f(BROWN);
+	//porta de 1 peça
+	/*glTranslatef(2.5, 5, 0.25);
+	glScalef(5, 10, 0.5);
+	drawCube();*/
+	//porta de 4 peças
+	/*
+		_____________
+		|	| 3 |	|
+		|	|___|	|
+		|	|	|	|
+		|	|___|	|
+		| 1 |	| 2 |
+		|	|	|	|
+		|	| 4 |	|
+		|	|	|	|
+		|___|___|___|
+
+	*/
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();//peça 1
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	glTranslatef(1, 5, 0.25);
+	glScalef(2, 10, 0.5);
+	drawCube();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();//peça 2
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	glTranslatef(4, 5, 0.25);
+	glScalef(2, 10, 0.5);
+	drawCube();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();//peça 3
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	glTranslatef(2.5, 9, 0.25);
+	glScalef(1, 2, 0.5);
+	drawCube();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();//peça 4
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	glTranslatef(2.5, 3.5, 0.25);
+	glScalef(1, 7, 0.5);
+	drawCube();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
+
+
+	//Maçaneta
+	GLfloat macanetaAmb[] = { 0.23125f, 0.23125f, 0.23125f, 1.0f };
+	GLfloat	macanetaDif[] = { 0.50754f, 0.50754f, 0.50754f, 1.0f };
+	GLfloat	macanetaSpec[] = { 0.508273f, 0.508273f, 0.508273f, 1.0f };
+	GLfloat macanetaCoef = 51.2f;
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, macanetaAmb);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, macanetaDif);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, macanetaSpec);
+	glMaterialf(GL_FRONT, GL_SHININESS, macanetaCoef);
+
+	glPushMatrix();
+	glTranslatef(4.2, 5, 0.8);
+	glTranslatef(0.60 / 2, 0, 0);
+	glRotatef(anguloMacaneta, 0, 0, 1);
+	glTranslatef(-0.60 / 2, 0, 0);
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();//Paralelipipedo
+	glBindTexture(GL_TEXTURE_2D, texture[1]);
+	//glColor4f(GREY);
+	glTranslatef(0, 0, 0);
+	glScalef(0.75, 0.2, 0.2);
+	drawCube();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();//Cubo
+	glBindTexture(GL_TEXTURE_2D, texture[1]);
+	//glColor4f(GREY);
+	glTranslatef(0.275, 0, -0.2);
+	glScalef(0.2, 0.2, 0.2);
+	drawCube();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+	glPopMatrix();
+
+	//Transparencia janela da porta
+	/*
+	* Objetos com transparencia têm de ser desenhados no fim do drawScene
+	*/
+	GLfloat corTransp[] = { 1.0, 1.0, 1.0, 0.5 };
+
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, corTransp);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, corTransp);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, corTransp);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//Janela da porta
+	glPushMatrix();
+	glTranslatef(xDeslizaJanela, 0, 0);
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D, texture[2]);
+	//glColor4f(BLACK);
+	glTranslatef(2.5, 7.5, 0.0375);
+	glScalef(1, 1, 0.05);
+	drawCube();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+	glPopMatrix();
+
+	glBlendFunc(GL_ONE, GL_ZERO);
+	glPopMatrix(); //fim rotação porta
+
+	
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
